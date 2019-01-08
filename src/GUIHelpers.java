@@ -19,6 +19,9 @@ public class GUIHelpers {
 
     public static String[] DisplayGameGUI(String type) throws Exception {
         GameGUI game = new GameGUI();
+
+
+
         String[] methodReturns = {"test", "temp"};
         return methodReturns;
     }
