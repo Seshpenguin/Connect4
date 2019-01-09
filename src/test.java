@@ -2,6 +2,7 @@ import javax.sound.sampled.BooleanControl;
 import java.util.*;
 
 public class test {
+    static boolean isDebug = true;
     public static void main(String args[]) {
         int[][] testGrid =  new int[][] {
             {0, 1, 2, 2, 2, 2, 1},
@@ -12,7 +13,7 @@ public class test {
             {}
         };
         int currentPlayerID = 2;
-        int[] userInput = new int[] {1,2};
+        int[] userInput = new int[] {4,5};
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
@@ -46,7 +47,7 @@ public class test {
         int count = 0;
         
         int x = 0;
-        int u = 0;
+        int y = 0;
         
         //Going NW
         count = 0;
@@ -65,10 +66,12 @@ public class test {
             y = inputCord[0];
             x = inputCord[1];
             count++;
-            y += count;
-            x += count;
+            x = x + count;
+            y = y + count;
+            while(isDebug) System.out.println(x + ", " + y + ", " + tempDiaA);
             tempDiaA = tempDiaA + stringGrid[y][x];
-        } while (x < 7 || y < 6);
+            while(isDebug) System.out.print(tempDiaA);
+        } while (y < 6 || x < 7);
 
         //Going NE
         count = 0;
@@ -78,7 +81,7 @@ public class test {
             count++;
             y -= count;
             x += count;
-            tempDiab = tempDiaB + stringGrid[y][x];
+            tempDiaB = tempDiaB + stringGrid[y][x];
         } while (x < 7 || y < 6);
 
         //Going SW
@@ -86,7 +89,7 @@ public class test {
         do {
             y = inputCord[0];
             x = inputCord[1];
-            tempDiab = stringGrid[y][x] + tempDiaB;
+            tempDiaB = stringGrid[y][x] + tempDiaB;
             count++;
             y += count;
             x -= count;
@@ -111,8 +114,9 @@ public class test {
     //To check the connect 4
     public static int repeatCounter(String playerID, String stringTOCheck) {
         int counter = 1;
-        for (int i = 0; i < stringTOCheck.length-1; i ++) {
-            if (stringTOCheck.charAt(i) == stringTOCheck.charAt(i+1) && stringTOCheck.charAt(i) == playerID) {
+        char currentID = playerID.charAt(0);
+        for (int i = 0; i < stringTOCheck.length()-1; i ++) {
+            if (stringTOCheck.charAt(i) == stringTOCheck.charAt(i+1) && stringTOCheck.charAt(i) == currentID) {
                 counter++;
             } else {
                 counter = 1;
