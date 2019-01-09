@@ -7,16 +7,15 @@ public class Main {
         HelperMethods.debugMode = true; // Turn debug mode on or off.
         System.out.println("Welcome to Connect 4!");
 
-        String[] menuOptions = GUIHelpers.DisplayMainMenu();
-
-        // Start the game based on user's selection:
-        if(menuOptions[1].equals("")) {
-
+        int[] menuOptions = GUIHelpers.DisplayMainMenu();
+        if(menuOptions[0] == 0) { // PvP
+            GameCore.startPvPGame();
         }
+        // Start the game based on user's selection:
 
         System.out.println(menuOptions[1]);
 
         //debug
-        String[] gameResult = GUIHelpers.DisplayGameGUI("test");
+        //String[] gameResult = GUIHelpers.DisplayGameGUI("test");
     }
 }
