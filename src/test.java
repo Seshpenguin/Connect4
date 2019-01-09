@@ -1,9 +1,9 @@
 import javax.sound.sampled.BooleanControl;
 import java.util.*;
 
-public class checkerFunctionmEthOd {
+public class test {
     public static void main(String args[]) {
-        Int[][] testGrid =  new Int[][] {
+        int[][] testGrid =  new int[][] {
             {0, 1, 2, 2, 2, 2, 1},
             {},
             {},
@@ -12,7 +12,7 @@ public class checkerFunctionmEthOd {
             {}
         };
         int currentPlayerID = 2;
-        int[] userInput = new Int[] {1,2};
+        int[] userInput = new int[] {1,2};
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
@@ -44,12 +44,15 @@ public class checkerFunctionmEthOd {
             tempVer += stringGrid[i][inputCord[1]];
         }
         int count = 0;
-
+        
+        int x = 0;
+        int u = 0;
+        
         //Going NW
         count = 0;
         do {
-            int y = inputCord[0];
-            int x = inputCord[1];
+            y = inputCord[0];
+            x = inputCord[1];
             tempDiaA = stringGrid[y][x] + tempDiaA;
             count++;
             y -= count;
@@ -59,8 +62,8 @@ public class checkerFunctionmEthOd {
         //Going SE
         count = 0;
         do {
-            int y = inputCord[0];
-            int x = inputCord[1];
+            y = inputCord[0];
+            x = inputCord[1];
             count++;
             y += count;
             x += count;
@@ -70,8 +73,8 @@ public class checkerFunctionmEthOd {
         //Going NE
         count = 0;
         do {
-            int y = inputCord[0];
-            int x = inputCord[1];
+            y = inputCord[0];
+            x = inputCord[1];
             count++;
             y -= count;
             x += count;
@@ -81,8 +84,8 @@ public class checkerFunctionmEthOd {
         //Going SW
         count = 0;
         do {
-            int y = inputCord[0];
-            int x = inputCord[1];
+            y = inputCord[0];
+            x = inputCord[1];
             tempDiab = stringGrid[y][x] + tempDiaB;
             count++;
             y += count;
