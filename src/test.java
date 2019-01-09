@@ -11,13 +11,13 @@ public class checkerFunctionmEthOd {
             {},
             {}
         };
-        
+        int currentPlayerID = 2;
         int[] userInput = new Int[] {1,2};
 
-        System.out.println(checkerFunctionMethod(testGrid));
+        System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
 
-    public static boolean checkerFunctionMethod(int[][] seshanIsLazy, int[] inputCord) {
+    public static boolean checkerFunctionMethod(int[][] seshanIsLazy, int[] inputCord, int currentID) {
         boolean connect4 = false;
         String[][] stringGrid = new String[7][7];
         for (int i = 0; i < seshanIsLazy.length; i++) {
@@ -89,8 +89,32 @@ public class checkerFunctionmEthOd {
             x -= count;
         } while (x < 7 || y < 6);
 
-        int repeatCounter = 0;
-        for (int )
+        String playerID = "";
+        if (currentID == 1) {
+            playerID = "a";
+        } else {
+            playerID = "b";
+        }
+        
+        if (repeatCounter(playerID, tempDiaA) == 4 || repeatCounter(playerID, tempDiaB) == 4 || repeatCounter(playerID, tempHor) == 4 || repeatCounter(playerID, tempVer) == 4) {
+            connect4 = true;
+        } else {
+            connect4 = false;
+        }
+
         return connect4;
+    }
+
+    //To check the connect 4
+    public static int repeatCounter(String playerID, String stringTOCheck) {
+        int counter = 1;
+        for (int i = 0; i < stringTOCheck.length-1; i ++) {
+            if (stringTOCheck.charAt(i) == stringTOCheck.charAt(i+1) && stringTOCheck.charAt(i) == playerID) {
+                counter++;
+            } else {
+                counter = 1;
+            }
+        }
+        return counter;
     }
 }
