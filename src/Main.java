@@ -9,7 +9,7 @@ public class Main {
 
         int[] menuOptions = GUIHelpers.DisplayMainMenu();
         if(menuOptions[0] == 0) { // PvP
-            GameCore.startPvPGame();
+            GameCore.startGame(1);
         }
         // Start the game based on user's selection:
 

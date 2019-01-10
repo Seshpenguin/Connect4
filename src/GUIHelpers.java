@@ -22,15 +22,16 @@ public class GUIHelpers {
         // gameGrid is the current state of the gameboard to display
         // turn is player 1 or 2 turn (always 2 being handled as AI)
 
-        GameGUI game = new GameGUI();
+        GameGUI game = new GameGUI(type, gameGrid, turn);
 
         while(game.isWatingForUserInput()) {
             Thread.sleep(500); // Prevents the loop from taking 100% CPU.
             HelperMethods.debugPrintln(game.isWatingForUserInput() + " is the value.");
         }
 
-        int[] methodReturns = new int[];
+        int[] methodReturns = new int[1];
         // Get and return the selected column.
+        methodReturns[0] = game.getCol();
 
         return methodReturns;
     }
