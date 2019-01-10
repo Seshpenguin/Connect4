@@ -1,8 +1,9 @@
 import javax.sound.sampled.BooleanControl;
 import java.util.*;
 
-public class test {
-    static boolean isDebug = true;
+public class GameValidation {
+    static boolean isDebug = false;
+/*
     public static void main(String args[]) {
         int[][] testGrid =  new int[][] {
             {0, 0, 0, 0, 0, 0, 0},
@@ -13,20 +14,18 @@ public class test {
             {0, 1, 2, 1, 1, 2, 0}
         };
         int currentPlayerID = 1;
-        int[] userInput = new int[] {2, 3};
+        int[] userInput = new int[] {5, 3};
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
-
+*/
     public static boolean checkerFunctionMethod(int[][] seshanIsLazy, int[] inputCord, int currentID) {
-
-        if(isDebug) System.out.println(Arrays.toString(seshanIsLazy));
 
         String tempHor = "";
         String tempVer = "";
         String tempDiaA = stringDiagonalA(inputCord, seshanIsLazy);
         String tempDiaB = stringDiagonalB(inputCord, seshanIsLazy);
-
+        
         for (int i = 0; i < 7; i++) {
             tempHor += Integer.toString(seshanIsLazy[inputCord[0]][i]);
             if(isDebug) System.out.println(tempHor);
@@ -36,9 +35,8 @@ public class test {
             if(isDebug) System.out.println(tempVer);
         }
 
-        if(isDebug) System.out.println(tempDiaA);
         boolean connect4 = false;
-
+        
         if (repeatCounter(currentID, tempDiaA) || repeatCounter(currentID, tempDiaB) || repeatCounter(currentID, tempHor) || repeatCounter(currentID, tempVer)) {
             connect4 = true;
         } else {
@@ -60,32 +58,58 @@ public class test {
     }
 
     public static String stringDiagonalA (int[] inputCord, int[][] seshanIsLazy) {
-        int x = inputCord[1] - inputCord[0];
-        int y = inputCord[0] - inputCord[0];
+        int x = inputCord[1];
+        int y = inputCord[0];
+        
         String finalString = "";
-
-        while(y < 6) {
-            finalString += seshanIsLazy[y][x];
-            y++;
-            x++;
-            if(isDebug) System.out.println(y + " " + x + " " + finalString);
+        if (y < x) {
+            x -= inputCord[0];
+            y -= inputCord[0];
+            while(y < 6 && x < 7) {
+                finalString += seshanIsLazy[y][x];
+                if(isDebug) System.out.println(y + " " + x + " " + finalString);
+                y++;
+                x++;
+            }
+        } else {
+            x -= inputCord[1];
+            y -= inputCord[1];
+            while(y < 6 && x < 7) {
+                finalString += seshanIsLazy[y][x];
+                if(isDebug) System.out.println(y + " " + x + " " + finalString);
+                y++;
+                x++;
+            } 
         }
 
         return finalString;
     }
 
     public static String stringDiagonalB (int[] inputCord, int[][] seshanIsLazy) {
-        int x = inputCord[1] - (6 - inputCord[0]);
-        int y = inputCord[0] + (6 - inputCord[0]) - 1;
+        int x = inputCord[1];
+        int y = inputCord[0];
         String finalString = "";
 
-        while(x < 7) {
-            finalString += seshanIsLazy[y][x];
-            y++;
-            x++;
-            if(isDebug) System.out.println(y + " " + x + " " + finalString);
+        if (y > x) {
+            x = inputCord[1] - (5 - inputCord[0]);
+            y = inputCord[0] + (5 - inputCord[0]);
+            while(y >= 0 && x < 7) {
+                finalString += seshanIsLazy[y][x];
+                if(isDebug) System.out.println(y + " " + x + " " + finalString);
+                y--;
+                x++;
+            }       
+        } else {
+            x = 0;
+            y = inputCord[0] + (inputCord[1]);
+            while(y >= 0 && x < 7) {
+                finalString += seshanIsLazy[y][x];
+                if(isDebug) System.out.println(y + " " + x + " " + finalString);
+                y--;
+                x++;
+            }
         }
-
+        
         return finalString;
     }
 }
