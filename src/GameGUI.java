@@ -12,9 +12,9 @@ public class GameGUI extends JFrame implements ActionListener {
     JLabel status = new JLabel("It is Player 1's turn...");
 
     // Game Grid
-    ImageIcon redCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/red-circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-    ImageIcon yellowCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/red-circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-    ImageIcon neutralCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/red-circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+    ImageIcon redCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/Red Circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    ImageIcon yellowCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/red-circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    ImageIcon neutralCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/red-circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
     JLabel[][] gameGridIcons = new JLabel[6][7];
 
     public GameGUI() {
@@ -35,6 +35,7 @@ public class GameGUI extends JFrame implements ActionListener {
         // Initialize the column input buttons
         for (int i = 0; i < inButtons.length; i++) {
             inButtons[i] = new JButton(" " + i + " ");
+            inButtons[i].addActionListener(this);
             colInput.add(inButtons[i]);
         }
         colInput.setLayout(flow);
@@ -60,7 +61,7 @@ public class GameGUI extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent event) {
         String command = event.getActionCommand();
-        System.out.println("'" + command + "'");
+        HelperMethods.debugPrintln("'" + command + "'");
         if (command.equals(" 1 ")) {
             HelperMethods.debugPrintln("1 button was pressed.");
             selectedCol = true;

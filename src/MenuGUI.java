@@ -78,4 +78,10 @@ public class MenuGUI  extends JFrame implements ActionListener {
             return true;
         }
     }
+
+    public int gameType() {
+        // Get the game type (1 for PvP, 2 for AI)
+        // TODO
+        return 1;
+    }
 }
