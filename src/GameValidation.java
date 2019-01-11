@@ -65,22 +65,16 @@ public class GameValidation {
         if (y < x) {
             x -= inputCord[0];
             y -= inputCord[0];
-            while(y < 6 && x < 7) {
+        } else {
+            x -= inputCord[1];
+            y -= inputCord[1];
+        }
+        while(y < 6 && x < 7) {
                 finalString += seshanIsLazy[y][x];
                 if(isDebug) System.out.println(y + " " + x + " " + finalString);
                 y++;
                 x++;
             }
-        } else {
-            x -= inputCord[1];
-            y -= inputCord[1];
-            while(y < 6 && x < 7) {
-                finalString += seshanIsLazy[y][x];
-                if(isDebug) System.out.println(y + " " + x + " " + finalString);
-                y++;
-                x++;
-            } 
-        }
 
         return finalString;
     }
@@ -92,24 +86,17 @@ public class GameValidation {
 
         if (y > x) {
             x = inputCord[1] - (5 - inputCord[0]);
-            y = inputCord[0] + (5 - inputCord[0]);
-            while(y >= 0 && x < 7) {
-                finalString += seshanIsLazy[y][x];
-                if(isDebug) System.out.println(y + " " + x + " " + finalString);
-                y--;
-                x++;
-            }       
+            y = inputCord[0] + (5 - inputCord[0]);       
         } else {
             x = 0;
             y = inputCord[0] + (inputCord[1]);
-            while(y >= 0 && x < 7) {
+        }
+        while(y >= 0 && x < 7) {
                 finalString += seshanIsLazy[y][x];
                 if(isDebug) System.out.println(y + " " + x + " " + finalString);
                 y--;
                 x++;
             }
-        }
-        
         return finalString;
     }
 }
