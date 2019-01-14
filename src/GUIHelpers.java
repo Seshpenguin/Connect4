@@ -1,3 +1,8 @@
+/*
+ * ICS4U Connect 4 - GUI Helper Methods
+ * These methods are for calling the GUI and to collect the data from them.
+ * by Seshan
+ */
 public class GUIHelpers {
     public static int[] DisplayMainMenu() throws Exception {
         System.out.println("Displaying the main menu...");
@@ -34,5 +39,10 @@ public class GUIHelpers {
         methodReturns[0] = game.getCol();
 
         return methodReturns;
+    }
+
+    public static void DisplayResultGUI (int winner, boolean isAI) {
+        ResultGUI result = new ResultGUI(winner, isAI);
+
     }
 }

@@ -1,5 +1,6 @@
 /*
- * Connect 4 Swing GUI Component.
+ * ICS4U Connect 4 - Main Game GUI
+ * This is the main Game GUI, written using swing. It is called by GUIHelpers.
  * by Seshan
  */
 import javax.swing.*;

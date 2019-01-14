@@ -1,6 +1,12 @@
+/*
+ * ICS4U Connect 4 - Menu GUI
+ * This is the first menu where a player can choose the mode, and press play. It is called from GUI Helpers.
+ * by Seshan
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Enumeration;
 
 public class MenuGUI  extends JFrame implements ActionListener {
 
@@ -10,7 +16,9 @@ public class MenuGUI  extends JFrame implements ActionListener {
 
     JRadioButton selector1 = new JRadioButton("Player vs Player");
     JRadioButton selector2 = new JRadioButton("Player vs Easy AI");
-    JRadioButton selector3 = new JRadioButton("Player vs Hard AI");
+    JRadioButton selector3 = new JRadioButton("WIP: Player vs Hard AI");
+
+    ButtonGroup group = new ButtonGroup();
 
     // States
     public boolean pressedPlay = false;
@@ -33,7 +41,7 @@ public class MenuGUI  extends JFrame implements ActionListener {
         GridLayout buttonGrid = new GridLayout(1,3);
         GridLayout mainGrid = new GridLayout(3, 1);
 
-        ButtonGroup group = new ButtonGroup();
+
         group.add(selector1);
         group.add(selector2);
         group.add(selector3);
@@ -82,7 +90,21 @@ public class MenuGUI  extends JFrame implements ActionListener {
 
     public int gameType() {
         // Get the game type (1 for PvP, 2 for AI)
-        // TODO
+
+        // Loop through the button group and find the selected option.
+        for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                if(button.getText().equals("Player vs Player")) {
+                    return 1;
+                } else if (button.getText().equals("Player vs Easy AI")) {
+                    return 2;
+                } else {
+                    return -1;
+                }
+            }
+        }
         return 0;
     }
 }

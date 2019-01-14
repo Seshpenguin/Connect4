@@ -1,5 +1,6 @@
 /*
- * Connect 4 Main Game Logic
+ * ICS4U Connect 4 - Game Logic Core
+ * This is where the main game logic takes place. it calls the various methods to accomplish this.
  * by Seshan
  */
 public class GameCore {
@@ -25,6 +26,8 @@ public class GameCore {
                 if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
                     // Player 1 has won.
                     HelperMethods.debugPrintln("Player 1 has connected 4.");
+                    GUIHelpers.DisplayResultGUI(currentTurn, false);
+                    break;
                 } else {
                     currentTurn = 2; // Set it to player 2's turn.
                 }
@@ -39,6 +42,8 @@ public class GameCore {
                     if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
                         // Player 1 has won.
                         HelperMethods.debugPrintln("Player 2 has connected 4.");
+                        GUIHelpers.DisplayResultGUI(currentTurn, false);
+                        break;
                     } else {
                         currentTurn = 1;
                     }
@@ -46,6 +51,8 @@ public class GameCore {
                 } else {
                     // probe the AI for a column.
                     // TODO
+                    HelperMethods.debugPrintln("TODO: AI Play Move");
+                    // GUIHelpers.DisplayResultGUI(currentTurn, true);
                     currentTurn = 1;
                 }
             }
