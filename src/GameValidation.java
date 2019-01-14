@@ -13,7 +13,7 @@ public class GameValidation {
             {0, 1, 2, 0, 0, 0, 0}
         };
         int currentPlayerID = 1;
-        int[] userInput = new int[] {3, 1};
+        int[] userInput = new int[] {5, 1};
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
@@ -86,18 +86,11 @@ public class GameValidation {
         String finalString = "";
         if(isDebug) System.out.println(finalString);
 
-        if (y < x) {
-            x = inputCord[1] - (5 - inputCord[0]);
-            
-            y = inputCord[0] + (5 - inputCord[0]);
-            if(isDebug) System.out.println("a" + x + " " + y);
-   
-        } else {
-            x = 0;
-            y = inputCord[0] + (inputCord[1]);
-            if(isDebug) System.out.println("b");
-
+        while(x > 0 && y < 5) {
+            x--;
+            y++;
         }
+
         while(y >= 0 && x < 7) {
             if(isDebug) System.out.println(y + " " + x);
 
