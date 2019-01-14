@@ -1,23 +1,23 @@
 import java.util.*;
 
 public class GameValidation {
-    static boolean isDebug = false;
-/*
+    static boolean isDebug = true;
+
     public static void main(String args[]) {
         int[][] testGrid =  new int[][] {
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 1, 1, 0, 0, 0},
-            {0, 0, 1, 1, 0, 0, 0},
-            {0, 0, 2, 1, 2, 0, 0},
-            {0, 1, 2, 1, 1, 2, 0}
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {0, 1, 2, 0, 0, 0, 0},
+            {0, 1, 2, 0, 0, 0, 0}
         };
         int currentPlayerID = 1;
-        int[] userInput = new int[] {5, 3};
+        int[] userInput = new int[] {3, 1};
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
-*/
+
     public static boolean checkerFunctionMethod(int[][] seshanIsLazy, int[] inputCord, int currentID) {
 
         String tempHor = "";
@@ -80,17 +80,27 @@ public class GameValidation {
 
     public static String stringDiagonalB (int[] inputCord, int[][] seshanIsLazy) {
         int x = inputCord[1];
+        if(isDebug) System.out.println(x);
         int y = inputCord[0];
+        if(isDebug) System.out.println(y);
         String finalString = "";
+        if(isDebug) System.out.println(finalString);
 
-        if (y > x) {
+        if (y < x) {
             x = inputCord[1] - (5 - inputCord[0]);
-            y = inputCord[0] + (5 - inputCord[0]);       
+            
+            y = inputCord[0] + (5 - inputCord[0]);
+            if(isDebug) System.out.println("a" + x + " " + y);
+   
         } else {
             x = 0;
             y = inputCord[0] + (inputCord[1]);
+            if(isDebug) System.out.println("b");
+
         }
         while(y >= 0 && x < 7) {
+            if(isDebug) System.out.println(y + " " + x);
+
                 finalString += seshanIsLazy[y][x];
                 if(isDebug) System.out.println(y + " " + x + " " + finalString);
                 y--;
