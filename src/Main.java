@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         HelperMethods.debugMode = true; // Turn debug mode on or off.
         System.out.println("Welcome to Connect 4!");
+        System.out.println(System.getProperty("user.dir") + "/assets/red.png");
 
         int[] menuOptions = GUIHelpers.DisplayMainMenu();
         if(menuOptions[0] == 0) { // PvP

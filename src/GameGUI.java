@@ -19,9 +19,14 @@ public class GameGUI extends JFrame implements ActionListener {
     JLabel status;
 
     // Game Grid
-    ImageIcon redCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/Red Circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
-    ImageIcon yellowCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/Yellow Circle.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
-    ImageIcon neutralCircle = new ImageIcon(new ImageIcon("/home/seshpenguin/IdeaProjects/connect4/src/assets/Blank.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    ClassLoader cldr = this.getClass().getClassLoader();
+    java.net.URL redURL   = cldr.getResource("assets/red.png");
+    java.net.URL yellowURL   = cldr.getResource("assets/yellow.png");
+    java.net.URL blankURL   = cldr.getResource("assets/Blank.png");
+
+    ImageIcon redCircle = new ImageIcon(new ImageIcon(redURL).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    ImageIcon yellowCircle = new ImageIcon(new ImageIcon(yellowURL).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    ImageIcon neutralCircle = new ImageIcon(new ImageIcon(blankURL).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
     JLabel[][] gameGridIcons = new JLabel[6][7];
 
     public GameGUI(int type, int[][] gameGridArray, int turn) {
