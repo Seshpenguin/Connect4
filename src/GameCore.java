@@ -21,39 +21,61 @@ public class GameCore {
                 // Probe for the first players choice.
                 int[] selection = GUIHelpers.DisplayGameGUI(type, gameGrid, currentTurn);
                 int[] dropCoords = dropPiece(gameGrid, selection[0], currentTurn); // Drop the piece in the column
-
-                // Check if the player has won!
-                if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
-                    // Player 1 has won.
-                    HelperMethods.debugPrintln("Player 1 has connected 4.");
-                    GUIHelpers.DisplayResultGUI(currentTurn, false);
-                    break;
+                if(dropCoords[0] == -1) {
+                    HelperMethods.debugPrintln("This is an invalid move!");
+                    // TODO Display the try again popup
                 } else {
-                    currentTurn = 2; // Set it to player 2's turn.
+                    // Check if the player has won!
+                    if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
+                        // Player 1 has won.
+                        HelperMethods.debugPrintln("Player 1 has connected 4.");
+                        GUIHelpers.DisplayResultGUI(currentTurn, false);
+                        break;
+                    } else {
+                        currentTurn = 2; // Set it to player 2's turn.
+                    }
                 }
-
             } else {
                 // this will be player 2, or the AI.
                 HelperMethods.debugPrintln("~~ Player 2 turn...");
                 if(type == 1) { // PvP game
                     int[] selection = GUIHelpers.DisplayGameGUI(type, gameGrid, currentTurn);
                     int[] dropCoords = dropPiece(gameGrid, selection[0], currentTurn); // Drop the piece in the column
-                    // Check if the player has won!
-                    if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
-                        // Player 1 has won.
-                        HelperMethods.debugPrintln("Player 2 has connected 4.");
-                        GUIHelpers.DisplayResultGUI(currentTurn, false);
-                        break;
+                    if(dropCoords[0] == -1) {
+                        HelperMethods.debugPrintln("This is an invalid move!");
                     } else {
-                        currentTurn = 1;
+                        // Check if the player has won!
+                        if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
+                            // Player 1 has won.
+                            HelperMethods.debugPrintln("Player 2 has connected 4.");
+                            GUIHelpers.DisplayResultGUI(currentTurn, false);
+                            break;
+                        } else {
+                            currentTurn = 1;
+                        }
                     }
 
                 } else {
                     // probe the AI for a column.
                     // TODO
                     HelperMethods.debugPrintln("TODO: AI Play Move");
-                    // GUIHelpers.DisplayResultGUI(currentTurn, true);
-                    currentTurn = 1;
+                    //int[] dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
+                    int[] dropCoords = dropPiece(gameGrid, BetterAI.miniMax(gameGrid, 0, 0, 2), 2);
+                    if(dropCoords[0] == -1) {
+                        HelperMethods.debugPrintln("This is an invalid move AI!");
+                    } else {
+                        // Check if the AI has won the game.
+                        if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
+                            // Player 1 has won.
+                            HelperMethods.debugPrintln("Player 2 has connected 4.");
+                            GUIHelpers.DisplayResultGUI(currentTurn, false);
+                            break;
+                        } else {
+                            currentTurn = 1;
+                        }
+                        // GUIHelpers.DisplayResultGUI(currentTurn, true);
+                        //currentTurn = 1;
+                    }
                 }
             }
         }
@@ -61,14 +83,24 @@ public class GameCore {
 
     // Game Helpers
     public static int[] dropPiece (int[][] gameGrid, int col, int player) {
+        // Make sure this is not an out of bounds.
+
         // Calculate where to place the piece in the array.
         // This will count from the top (0) down the array to the last empty point.
+
         for(int i = 0; i < gameGrid.length; i++) {
             if(gameGrid[i][col] != 0) {
                 // We hit the top of the col
-                gameGrid[i-1][col] = player;
-                int[] returnParams = {i-1, col};
-                return returnParams;
+                if(i-1 >= 0) {
+                    gameGrid[i-1][col] = player;
+                    int[] returnParams = {i-1, col};
+                    return returnParams;
+                } else {
+                    // This column is full. Cannot drop.
+                    int[] returnParams = {-1, -1}; // -1 is error
+                    return returnParams;
+                }
+
             }
         }
         // Start of game, the board is empty

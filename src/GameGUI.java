@@ -32,6 +32,8 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public GameGUI(int type, int[][] gameGridArray, int turn) {
         FlowLayout flow = new FlowLayout();
+        BorderLayout inGridLayout = new BorderLayout(0, 0);
+
 
         // Game Grid Layout
         GridLayout gameGridLayout = new GridLayout(6,7);
@@ -55,7 +57,7 @@ public class GameGUI extends JFrame implements ActionListener {
             inButtons[i].addActionListener(this);
             colInput.add(inButtons[i]);
         }
-        colInput.setLayout(flow);
+        //colInput.setLayout(inGridLayout);
 
         // Fill the gameGrid
         gameGrid.setLayout(gameGridLayout);

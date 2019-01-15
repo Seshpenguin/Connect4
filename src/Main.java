@@ -4,7 +4,7 @@
  */
 public class Main {
     public static void main(String[] args) throws Exception{
-        HelperMethods.debugMode = true; // Turn debug mode on or off.
+        HelperMethods.debugMode = false; // Turn debug mode on or off.
         if(HelperMethods.debugMode) {
             GameValidation.isDebug = true;
         } else {
