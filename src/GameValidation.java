@@ -7,7 +7,7 @@
 import java.util.*;
 
 public class GameValidation {
-    static boolean isDebug = true;
+    static boolean isDebug = false;
     /*
     public static void main(String args[]) {
         int[][] testGrid =  new int[][] {

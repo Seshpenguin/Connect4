@@ -80,11 +80,11 @@ public class AICore {
 
 
     /* MiniMax Implementation */
-    public static int miniMax(int[][] gameState, int currentPlayer) {
+    public static int miniMax(int[][] gameState, int currentPlayer, int maxDepth) {
         int index = 0, score = 0;
 
-        int alpha = 0;
-        int beta = 0;
+        int alpha = -Integer.MAX_VALUE;
+        int beta = Integer.MAX_VALUE;
 
         // If the middle is empty, drop it there.
         // This AI tends to favour the left side, so we can manually help it a bit.
@@ -113,7 +113,7 @@ public class AICore {
             if (pos[0] == -1) {
                 continue;
             }
-            int s = miniMaxHelper(gameState, pos, 1, 0, false, alpha, beta);
+            int s = miniMaxHelper(gameState, pos, 1, 0, false, alpha, beta, maxDepth);
             if (score < s) {
                 score = s;
                 index = i;
@@ -124,26 +124,24 @@ public class AICore {
         return index;
     }
 
-    public static int miniMaxHelper(int[][] gameState, int[] currentInput, int currentPlayer, int depth, boolean isAI, int alpha, int beta) {
+    public static int miniMaxHelper(int[][] gameState, int[] currentInput, int currentPlayer, int depth, boolean isAI, int alpha, int beta, int maxDepth) {
         //base case
-        if (depth == 6) return 0;
+        if (depth == maxDepth) return 0;
 
         //Maximizing player
         if (isAI) {
             int score = -Integer.MAX_VALUE;
-/*
             if (GameValidation.checkerFunctionMethod(gameState, currentInput, currentPlayer)) {
-                return isAI ? (int) Math.pow(20, 10 - depth) : ((depth == 1) ? (int) Math.pow(20, 9) : -(int) Math.pow(20, depth));
+                return (int) Math.pow(10, 2*(maxDepth-depth));
+                //return isAI ? (int) Math.pow(20, 10 - depth) : ((depth == 1) ? (int) Math.pow(20, 9) : -(int) Math.pow(20, depth));
             }
-*/
 
             for (int i = 0; i < 7; i++) {
                 int[] pos = GameCore.dropPiece(gameState, i, currentPlayer);
                 if (pos[0] == -1) {
                     continue;
                 }
-                //score += miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth + 1, !isAI);
-                int value = miniMaxHelper(gameState, currentInput, currentPlayer, depth+1, !isAI, alpha, beta);
+                int value = miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth + 1, !isAI, alpha, beta, maxDepth);
                 System.out.println(value);
                 score = Math.max(score, value);
                 alpha = Math.max(alpha, score);
@@ -156,19 +154,19 @@ public class AICore {
         //Minimizing Player
         else {
             int score = Integer.MAX_VALUE;
-/*
+
             if (GameValidation.checkerFunctionMethod(gameState, currentInput, currentPlayer)) {
-                return isAI ? (int) Math.pow(20, 10 - depth) : ((depth == 1) ? (int) Math.pow(20, 9) : -(int) Math.pow(20, depth));
+                return (int) -Math.pow(10, 2*(maxDepth-depth));
+                //return isAI ? (int) Math.pow(20, 10 - depth) : ((depth == 1) ? (int) Math.pow(20, 9) : -(int) Math.pow(20, depth));
             }
-*/
+
 
             for (int i = 0; i < 7; i++) {
                 int[] pos = GameCore.dropPiece(gameState, i, currentPlayer);
                 if (pos[0] == -1) {
                     continue;
                 }
-                //score += miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth + 1, !isAI);
-                int value = miniMaxHelper(gameState, currentInput, currentPlayer, depth+1, !isAI, alpha, beta);
+                int value = miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth + 1, !isAI, alpha, beta, maxDepth);
                 System.out.println(value);
                 score = Math.min(value, score);
                 beta = Math.min(beta, score);

@@ -64,7 +64,7 @@ public class GameCore {
                     if (typeAI == 1) { // Easy AI
                         dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
                     } else { // Hard AI
-                        dropCoords = dropPiece(gameGrid, AICore.miniMax(gameGrid, 2), 2);
+                        dropCoords = dropPiece(gameGrid, AICore.miniMax(gameGrid, 2, 20), 2);
                     }
                     HelperMethods.debugPrintln("AI dropping at: " + dropCoords[1]);
 
