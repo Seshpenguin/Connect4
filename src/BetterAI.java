@@ -4,6 +4,19 @@ public class BetterAI {
     public static int miniMax(int[][] gameState, int currentPlayer) {
         int index = 0, score = 0;
 
+        //fix some stupid ai behaviour where the ai does not want to win
+        for (int i = 0; i < 7; i++) {
+            int[] pos = GameCore.dropPiece(gameState, i, currentPlayer);
+            if (pos[0] == -1) {
+                continue;
+            }
+            if (GameValidation.checkerFunctionMethod(gameState, pos, currentPlayer)) {
+                gameState[pos[0]][pos[1]] = 0;
+                return i;
+            }
+            gameState[pos[0]][pos[1]] = 0;
+        }
+
         // detect three in a row and place to block and return index to block
         for (int i = 0; i < 7; i++) {
             int[] pos = GameCore.dropPiece(gameState, i, (currentPlayer == 2) ? 1 : 2);
