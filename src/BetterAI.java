@@ -5,6 +5,17 @@ public class BetterAI {
         int index = 0, score = 0;
 
         // detect three in a row and place to block and return index to block
+        for (int i = 0; i < 7; i++) {
+            int[] pos = GameCore.dropPiece(gameState, i, (currentPlayer == 2) ? 1 : 2);
+            if (pos[0] == -1) {
+                continue;
+            }
+            if (GameValidation.checkerFunctionMethod(gameState, pos, (currentPlayer == 2) ? 1 : 2)) {
+                gameState[pos[0]][pos[1]] = 0;
+                return i;
+            }
+            gameState[pos[0]][pos[1]] = 0;
+        }
 
         for (int i = 0; i < 7; i++) {
             int[] pos = GameCore.dropPiece(gameState, i, currentPlayer);
@@ -26,7 +37,7 @@ public class BetterAI {
         if (depth == 6) return 0;
         // base state
         if (GameValidation.checkerFunctionMethod(gameState, currentInput, currentPlayer)) {
-            return isAI ? (int)Math.pow(20, 7-depth) : ((depth == 1) ? (int)Math.pow(20, 9): -(int)Math.pow(20, depth)) ;
+            return isAI ? (int)Math.pow(20, 10-depth) : ((depth == 1) ? (int)Math.pow(20, 9): -(int)Math.pow(20, depth)) ;
         }
 
         int score = 0;
