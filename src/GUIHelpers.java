@@ -41,8 +41,8 @@ public class GUIHelpers {
         return methodReturns;
     }
 
-    public static void DisplayResultGUI (int winner, boolean isAI) {
-        ResultGUI result = new ResultGUI(winner, isAI);
+    public static void DisplayResultGUI (int winner, boolean isAI, int[][] gameGridFinal) {
+        ResultGUI result = new ResultGUI(winner, isAI, gameGridFinal);
 
     }
 }

@@ -11,13 +11,18 @@ public class ResultGUI extends JFrame implements ActionListener {
     // GUI Components
     JButton button = new JButton("Exit");
     JLabel titleLabel = new JLabel("Thanks for playing Connect 4!", JLabel.CENTER);
+    JButton displayButton = new JButton("View the results (board)");
 
 
     // States
     public boolean pressedPlay = false;
 
+    // gameGrid (for results viewing)
+    int[][] gameGrid;
 
-    public ResultGUI(int winner, boolean isAI) {
+    public ResultGUI(int winner, boolean isAI, int[][] gameGridFinal) {
+        gameGrid = gameGridFinal; // This is so you can view the finished game.
+
         try{
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -39,7 +44,7 @@ public class ResultGUI extends JFrame implements ActionListener {
         titleLabel.setFont(new Font(titleLabel.getName(), Font.PLAIN, 24));
 
         setTitle("ICS4U Connect 4 - Congrats!");
-        setSize(480,240);
+        setSize(960,240);
 
         FlowLayout flow = new FlowLayout();
         GridLayout buttonGrid = new GridLayout(1,3);
@@ -52,9 +57,11 @@ public class ResultGUI extends JFrame implements ActionListener {
 
         add(titlePanel);
         add(winnerLabel);
+        add(displayButton);
         add(button);
 
         button.addActionListener(this);
+        displayButton.addActionListener(this);
 
         setLayout(mainGrid);
         setLocationRelativeTo(null);
@@ -68,6 +75,14 @@ public class ResultGUI extends JFrame implements ActionListener {
             HelperMethods.debugPrintln("Exit button was pressed.");
             this.pressedPlay = true;
             setVisible(false);
+            System.exit(0); // Exit the program
+        } else if(command.equals("View the results (board)")) {
+            try {
+                GameGUI game = new GameGUI(3, gameGrid, 1);
+            } catch (Exception e) {
+                // Do nothing
+            }
+
         }
     }
 

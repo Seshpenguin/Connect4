@@ -16,7 +16,7 @@ public class MenuGUI  extends JFrame implements ActionListener {
 
     JRadioButton selector1 = new JRadioButton("Player vs Player");
     JRadioButton selector2 = new JRadioButton("Player vs Easy AI");
-    JRadioButton selector3 = new JRadioButton("WIP: Player vs Hard AI");
+    JRadioButton selector3 = new JRadioButton("Player vs Hard AI");
 
     ButtonGroup group = new ButtonGroup();
 
@@ -100,9 +100,12 @@ public class MenuGUI  extends JFrame implements ActionListener {
                     return 1;
                 } else if (button.getText().equals("Player vs Easy AI")) {
                     return 2;
+                } else if (button.getText().equals("Player vs Hard AI")) {
+                    return 3;
                 } else {
                     return -1;
                 }
+
             }
         }
         return 0;

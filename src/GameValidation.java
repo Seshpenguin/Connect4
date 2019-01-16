@@ -1,8 +1,14 @@
+/*
+ * ICS4U Connect 4 - Game Validation
+ * Checks the game board for any wins (and returns true if that player has one)
+ * by Jack
+ */
+
 import java.util.*;
 
 public class GameValidation {
     static boolean isDebug = true;
-/*
+    /*
     public static void main(String args[]) {
         int[][] testGrid =  new int[][] {
             {0, 0, 0, 0, 0, 0, 0},
@@ -17,7 +23,7 @@ public class GameValidation {
 
         System.out.println(checkerFunctionMethod(testGrid, userInput, currentPlayerID));
     }
-*/
+    */
     public static boolean checkerFunctionMethod(int[][] seshanIsLazy, int[] inputCord, int currentID) {
 
         String tempHor = "";

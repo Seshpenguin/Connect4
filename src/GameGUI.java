@@ -23,7 +23,7 @@ public class GameGUI extends JFrame implements ActionListener {
     ClassLoader cldr = this.getClass().getClassLoader();
     java.net.URL redURL   = cldr.getResource("assets/red.png");
     java.net.URL yellowURL   = cldr.getResource("assets/yellow.png");
-    java.net.URL blankURL   = cldr.getResource("assets/Blank.png");
+    java.net.URL blankURL   = cldr.getResource("assets/blank.png");
 
     ImageIcon redCircle = new ImageIcon(new ImageIcon(redURL).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
     ImageIcon yellowCircle = new ImageIcon(new ImageIcon(yellowURL).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
@@ -32,7 +32,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public GameGUI(int type, int[][] gameGridArray, int turn) {
         FlowLayout flow = new FlowLayout();
-        BorderLayout inGridLayout = new BorderLayout(0, 0);
+        FlowLayout flowButtons = new FlowLayout(FlowLayout.CENTER, 10, 5);
 
 
         // Game Grid Layout
@@ -48,16 +48,24 @@ public class GameGUI extends JFrame implements ActionListener {
         JPanel statArea = new JPanel();
 
         // Label:
-        status = new JLabel("It is Player " + turn + "'s turn...");
+        if(type == 3) {
+            status = new JLabel("This is the game results!");
+        } else {
+            status = new JLabel("It is Player " + turn + "'s turn...");
+        }
 
         // Initialize the column input buttons
-        for (int i = 0; i < inButtons.length; i++) {
-            int labelNum = i + 1;
-            inButtons[i] = new JButton(" " + labelNum + " ");
-            inButtons[i].addActionListener(this);
-            colInput.add(inButtons[i]);
+        if(type != 3) {
+            for (int i = 0; i < inButtons.length; i++) {
+                int labelNum = i + 1;
+                inButtons[i] = new JButton(" " + labelNum + " ");
+                inButtons[i].addActionListener(this);
+                colInput.add(inButtons[i]);
+            }
         }
-        //colInput.setLayout(inGridLayout);
+
+        // Set the Layout for the buttons
+        colInput.setLayout(flowButtons);
 
         // Fill the gameGrid
         gameGrid.setLayout(gameGridLayout);

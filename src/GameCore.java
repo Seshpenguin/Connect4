@@ -5,7 +5,7 @@
  */
 public class GameCore {
     //6 x 7
-    public static void startGame(int type) throws Exception {
+    public static void startGame(int type, int typeAI) throws Exception {
         // Game States
         int currentTurn = 1; // Player 1 or 2
 
@@ -29,7 +29,7 @@ public class GameCore {
                     if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
                         // Player 1 has won.
                         HelperMethods.debugPrintln("Player 1 has connected 4.");
-                        GUIHelpers.DisplayResultGUI(currentTurn, false);
+                        GUIHelpers.DisplayResultGUI(currentTurn, false, gameGrid);
                         break;
                     } else {
                         currentTurn = 2; // Set it to player 2's turn.
@@ -48,7 +48,7 @@ public class GameCore {
                         if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
                             // Player 1 has won.
                             HelperMethods.debugPrintln("Player 2 has connected 4.");
-                            GUIHelpers.DisplayResultGUI(currentTurn, false);
+                            GUIHelpers.DisplayResultGUI(currentTurn, false, gameGrid);
                             break;
                         } else {
                             currentTurn = 1;
@@ -59,23 +59,32 @@ public class GameCore {
                     // probe the AI for a column.
                     // TODO
                     HelperMethods.debugPrintln("TODO: AI Play Move");
-                    //int[] dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
-                    int[] dropCoords = dropPiece(gameGrid, BetterAI.miniMax(gameGrid, 2, 7), 2);
-                    if(dropCoords[0] == -1) {
-                        HelperMethods.debugPrintln("This is an invalid move AI!");
-                    } else {
-                        // Check if the AI has won the game.
-                        if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
-                            // Player 1 has won.
-                            HelperMethods.debugPrintln("Player 2 has connected 4.");
-                            GUIHelpers.DisplayResultGUI(currentTurn, false);
-                            break;
-                        } else {
-                            currentTurn = 1;
-                        }
-                        // GUIHelpers.DisplayResultGUI(currentTurn, true);
-                        //currentTurn = 1;
+                    int[] dropCoords;
+
+                    if (typeAI == 1) { // Easy AI
+                        dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
+                    } else { // Hard AI
+                        dropCoords = dropPiece(gameGrid, AICore.miniMax(gameGrid, 2), 2);
                     }
+                    HelperMethods.debugPrintln("AI dropping at: " + dropCoords[1]);
+
+                    if(dropCoords[0] == -1) { // The AI placed an illegal move
+                        HelperMethods.debugPrintln("This is an illegal move AI!");
+                        // Fall back to the Easy AI. (Close to random)
+                        dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
+                    }
+                    // Check if the AI has won the game.
+                    if(GameValidation.checkerFunctionMethod(gameGrid, dropCoords, currentTurn)) {
+                        // Player 1 has won.
+                        HelperMethods.debugPrintln("Player 2 has connected 4.");
+                        GUIHelpers.DisplayResultGUI(currentTurn, false, gameGrid);
+                        break;
+                    } else {
+                        currentTurn = 1;
+                    }
+                    // GUIHelpers.DisplayResultGUI(currentTurn, true);
+                    //currentTurn = 1;
+
                 }
             }
         }
