@@ -1,7 +1,7 @@
 public class BetterAI {
 
 
-    public static int miniMax(int[][] gameState, int currentPlayer) {
+    public static int miniMax(int[][] gameState, int currentPlayer, int maxDepth) {
         int index = 0, score = 0;
 
         //fix some stupid ai behaviour where the ai does not want to win
@@ -30,12 +30,17 @@ public class BetterAI {
             gameState[pos[0]][pos[1]] = 0;
         }
 
+        //Activly blocking 3 moves ahead
+
+
+
+        //Looping through different branches
         for (int i = 0; i < 7; i++) {
             int[] pos = GameCore.dropPiece(gameState, i, currentPlayer);
             if (pos[0] == -1) {
                 continue;
             }
-            int s = miniMaxHelper(gameState, pos, 1, 0, false);
+            int s = miniMaxHelper(gameState, pos, 1, 0, false, maxDepth);
             if (score < s) {
                 score = s;
                 index = i;
@@ -46,8 +51,8 @@ public class BetterAI {
         return index;
     }
 
-    public static int miniMaxHelper(int[][] gameState, int[] currentInput, int currentPlayer, int depth, boolean isAI) {
-        if (depth == 6) return 0;
+    public static int miniMaxHelper(int[][] gameState, int[] currentInput, int currentPlayer, int depth, boolean isAI, int maxDepth) {
+        if (depth == maxDepth) return 0;
         // base state
         if (GameValidation.checkerFunctionMethod(gameState, currentInput, currentPlayer)) {
             return isAI ? (int)Math.pow(20, 10-depth) : ((depth == 1) ? (int)Math.pow(20, 9): -(int)Math.pow(20, depth)) ;
@@ -60,7 +65,7 @@ public class BetterAI {
             if (pos[0] == -1) {
                 continue;
             }
-            score += miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth+1, !isAI);
+            score += miniMaxHelper(gameState, pos, (currentPlayer == 1) ? 2 : 1, depth+1, !isAI, maxDepth);
             gameState[pos[0]][pos[1]] = 0;
         }
         return score;

@@ -60,7 +60,7 @@ public class GameCore {
                     // TODO
                     HelperMethods.debugPrintln("TODO: AI Play Move");
                     //int[] dropCoords = dropPiece(gameGrid, AICore.easyAI(gameGrid), 2);
-                    int[] dropCoords = dropPiece(gameGrid, BetterAI.miniMax(gameGrid, 2), 2);
+                    int[] dropCoords = dropPiece(gameGrid, BetterAI.miniMax(gameGrid, 2, 7), 2);
                     if(dropCoords[0] == -1) {
                         HelperMethods.debugPrintln("This is an invalid move AI!");
                     } else {
